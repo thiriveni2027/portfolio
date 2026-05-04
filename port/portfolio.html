@@ -1,0 +1,861 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THIRIVENI.DEV</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght@300;400;500;600;700&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================
+   THIRIVENI — PURPLE × PINK
+   Terminal · Hacker · Brutal
+============================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Share Tech Mono',monospace;
+  background:#08000f;
+  color:#e879f9;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* SCANLINES */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);
+}
+
+/* VIGNETTE */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9989;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.75) 100%);
+}
+
+/* CURSOR */
+#cur{
+  position:fixed;z-index:9999;pointer-events:none;
+  font-size:.9rem;color:#e879f9;
+  text-shadow:0 0 10px #e879f9;
+  transform:translate(-3px,-10px);
+  animation:blink .8s infinite;
+}
+@keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.8rem 3rem;
+  background:rgba(8,0,15,.92);
+  border-bottom:1px solid #3b0764;
+}
+.nav-logo{
+  font-family:'Teko',sans-serif;font-size:1.8rem;font-weight:700;
+  letter-spacing:3px;color:#e879f9;
+  text-shadow:0 0 20px #e879f9;
+}
+.nav-logo::before{content:'> ';font-family:'Share Tech Mono',monospace;font-size:1rem;color:#6b21a8;}
+.nav-links{display:flex;list-style:none;}
+.nav-links a{
+  display:block;padding:.4rem 1rem;
+  color:#7c3aed;font-size:.72rem;letter-spacing:.15em;
+  text-decoration:none;text-transform:uppercase;
+  border-left:1px solid #3b0764;
+  transition:all .15s;
+}
+.nav-links a:hover{color:#e879f9;background:rgba(232,121,249,.06);}
+.nav-links li:last-child a{border-right:1px solid #3b0764;}
+.nav-badge{
+  font-size:.68rem;color:#7c3aed;letter-spacing:.1em;
+  display:flex;align-items:center;gap:.5rem;
+}
+.nbdot{
+  width:7px;height:7px;border-radius:50%;
+  background:#e879f9;box-shadow:0 0 8px #e879f9;
+  animation:nbpulse 2s infinite;
+}
+@keyframes nbpulse{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  padding:5rem 3rem 3rem;
+  border-bottom:1px solid #3b0764;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(#3b0764 1px,transparent 1px),
+    linear-gradient(90deg,#3b0764 1px,transparent 1px);
+  background-size:40px 40px;opacity:.25;
+}
+
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:2rem 3rem 2rem 0;
+  border-right:1px solid #3b0764;
+  position:relative;z-index:2;
+}
+.hero-tag{
+  font-size:.72rem;color:#6b21a8;letter-spacing:.1em;margin-bottom:1rem;
+}
+.hero-tag::before{content:'[sys] ';color:#3b0764;}
+
+.hero-name{
+  font-family:'Teko',sans-serif;
+  font-size:clamp(5rem,10vw,10rem);
+  font-weight:700;line-height:.85;letter-spacing:-2px;
+  color:#e879f9;
+  text-shadow:0 0 40px rgba(232,121,249,.5),0 0 80px rgba(168,85,247,.2);
+  margin-bottom:.5rem;
+  position:relative;
+}
+/* glitch */
+.hero-name::before{
+  content:attr(data-text);position:absolute;top:0;left:0;
+  font-family:'Teko',sans-serif;font-size:inherit;font-weight:700;line-height:.85;letter-spacing:-2px;
+  color:#f472b6;
+  clip-path:polygon(0 25%,100% 25%,100% 45%,0 45%);
+  animation:gl1 5s infinite;text-shadow:none;
+}
+.hero-name::after{
+  content:attr(data-text);position:absolute;top:0;left:0;
+  font-family:'Teko',sans-serif;font-size:inherit;font-weight:700;line-height:.85;letter-spacing:-2px;
+  color:#a855f7;
+  clip-path:polygon(0 55%,100% 55%,100% 72%,0 72%);
+  animation:gl2 5s infinite;text-shadow:none;
+}
+@keyframes gl1{0%,88%,100%{transform:translate(0);}89%{transform:translate(-4px,1px);}91%{transform:translate(4px,-1px);}93%{transform:translate(-2px);}}
+@keyframes gl2{0%,88%,100%{transform:translate(0);}90%{transform:translate(4px,1px);}92%{transform:translate(-4px,-1px);}94%{transform:translate(2px);}}
+
+.hero-role{
+  font-family:'Teko',sans-serif;font-size:clamp(1.2rem,2.5vw,2rem);
+  font-weight:300;letter-spacing:6px;color:#c084fc;
+  margin-bottom:1.5rem;text-transform:uppercase;
+}
+.typewr{
+  font-size:.8rem;color:#a855f7;
+  border-left:2px solid #e879f9;
+  padding-left:1rem;margin-bottom:2.5rem;min-height:1.4rem;
+}
+.hero-btns{display:flex;gap:1rem;}
+.btn-t{
+  padding:.6rem 1.5rem;background:transparent;
+  border:1px solid #e879f9;color:#e879f9;
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;
+  letter-spacing:.1em;cursor:none;transition:all .2s;
+  text-transform:uppercase;position:relative;overflow:hidden;
+}
+.btn-t::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:rgba(232,121,249,.12);transition:left .3s;}
+.btn-t:hover::before{left:0;}
+.btn-t:hover{color:#08000f;background:#e879f9;box-shadow:0 0 24px #e879f9;}
+.btn-g{
+  padding:.6rem 1.5rem;background:transparent;
+  border:1px solid #3b0764;color:#6b21a8;
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;
+  letter-spacing:.1em;cursor:none;transition:all .2s;text-transform:uppercase;
+}
+.btn-g:hover{border-color:#a855f7;color:#c084fc;}
+
+/* TERMINAL WINDOW */
+.hero-right{
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 0 2rem 3rem;position:relative;z-index:2;
+}
+.term-win{
+  width:100%;max-width:480px;
+  background:#0d0118;
+  border:1px solid #3b0764;
+  border-radius:4px;
+  box-shadow:0 0 60px rgba(168,85,247,.1),inset 0 0 40px rgba(0,0,0,.5);
+  animation:termfloat 5s ease-in-out infinite;
+}
+@keyframes termfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.term-bar{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.55rem 1rem;
+  background:#080010;border-bottom:1px solid #3b0764;
+}
+.tdot{width:10px;height:10px;border-radius:50%;}
+.td1{background:#ff5f57;box-shadow:0 0 5px #ff5f57;}
+.td2{background:#febc2e;box-shadow:0 0 5px #febc2e;}
+.td3{background:#e879f9;box-shadow:0 0 5px #e879f9;}
+.term-ttl{margin-left:.5rem;font-size:.68rem;color:#6b21a8;letter-spacing:.08em;}
+.term-body{padding:1.2rem 1.4rem;font-size:.78rem;line-height:2;min-height:320px;}
+.tl{display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;}
+.tp{color:#3b0764;}
+.tc{color:#e879f9;}
+.to{color:#c084fc;padding-left:1rem;}
+.tk{color:#f9a8d4;}
+.tv{color:#f5d0fe;}
+.ttag{
+  display:inline-block;padding:.05rem .4rem;
+  border:1px solid;border-radius:2px;font-size:.65rem;margin:0 .1rem;
+}
+.tpurple{color:#e879f9;border-color:#3b0764;}
+.tpink{color:#f472b6;border-color:rgba(244,114,182,.3);}
+.tamber{color:#fbbf24;border-color:rgba(251,191,36,.3);}
+.tblue{color:#60a5fa;border-color:rgba(96,165,250,.3);}
+.tblink{display:inline-block;width:8px;height:1em;background:#e879f9;animation:blink .8s infinite;vertical-align:text-bottom;}
+
+/* SECTIONS */
+.sec{padding:5rem 3rem;border-bottom:1px solid #3b0764;}
+.sec-hdr{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3rem;}
+.sec-n{font-size:.68rem;color:#3b0764;letter-spacing:.2em;font-family:'Share Tech Mono',monospace;}
+.sec-t{
+  font-family:'Teko',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:600;letter-spacing:2px;color:#e879f9;
+  text-shadow:0 0 30px rgba(232,121,249,.2);text-transform:uppercase;line-height:1;
+}
+.sec-t span{color:#6b21a8;}
+.sec-ln{flex:1;height:1px;background:linear-gradient(90deg,#3b0764,transparent);margin-bottom:.5rem;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.ablock{
+  background:#0d0118;border:1px solid #3b0764;
+  padding:1.8rem;position:relative;
+}
+.ablock::before{content:attr(data-l);position:absolute;top:-1px;left:1rem;
+  font-size:.6rem;letter-spacing:.2em;color:#e879f9;
+  background:#08000f;padding:0 .4rem;text-transform:uppercase;
+}
+.atext{font-size:.82rem;line-height:2;color:#c084fc;}
+.atext strong{color:#e879f9;}
+.atext em{color:#f9a8d4;font-style:normal;}
+
+.stat-row{display:flex;flex-direction:column;gap:.9rem;}
+.stat-item{display:flex;align-items:center;gap:1rem;}
+.snum{
+  font-family:'Teko',sans-serif;font-size:3rem;font-weight:700;
+  color:#e879f9;text-shadow:0 0 20px #e879f9;
+  min-width:80px;text-align:right;line-height:1;
+}
+.sbar-wrap{flex:1;}
+.sbar-lbl{font-size:.65rem;color:#6b21a8;letter-spacing:.12em;margin-bottom:.3rem;text-transform:uppercase;}
+.sbar{height:3px;background:#3b0764;position:relative;overflow:hidden;}
+.sbar-fill{
+  position:absolute;top:0;left:0;height:100%;width:0;
+  background:#e879f9;box-shadow:0 0 8px #e879f9;
+  transition:width 1.5s cubic-bezier(.25,.46,.45,.94);
+}
+
+/* SKILLS */
+.skill-term{background:#0d0118;border:1px solid #3b0764;padding:1.5rem;}
+.skcat{margin-bottom:1.5rem;}
+.skcat-lbl{
+  font-size:.65rem;color:#3b0764;letter-spacing:.2em;
+  text-transform:uppercase;margin-bottom:.7rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.skcat-lbl::before{content:'$ ';color:#6b21a8;}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;}
+.chip{
+  font-size:.7rem;padding:.25rem .75rem;
+  border:1px solid;transition:all .2s;cursor:default;letter-spacing:.05em;
+}
+.chip:hover{box-shadow:0 0 12px currentColor;}
+.cp{color:#e879f9;border-color:#3b0764;}
+.cpk{color:#f472b6;border-color:rgba(244,114,182,.3);}
+.cbl{color:#60a5fa;border-color:rgba(96,165,250,.3);}
+.cam{color:#fbbf24;border-color:rgba(251,191,36,.3);}
+.cwh{color:#f5d0fe;border-color:rgba(245,208,254,.2);}
+
+/* EXPERIENCE */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.ecard{
+  border:1px solid #3b0764;background:#0d0118;
+  position:relative;overflow:hidden;
+  transition:border-color .25s,box-shadow .25s;
+}
+.ecard:hover{border-color:#e879f9;box-shadow:0 0 30px rgba(232,121,249,.08);}
+.ecard.pk:hover{border-color:#f472b6;box-shadow:0 0 30px rgba(244,114,182,.08);}
+.escan{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:#e879f9;opacity:0;
+  animation:escanmove 4s linear infinite;
+}
+.ecard.pk .escan{background:#f472b6;}
+@keyframes escanmove{0%{top:0;opacity:.7;}100%{top:100%;opacity:0;}}
+.etop{
+  padding:1.2rem 1.5rem;border-bottom:1px solid #3b0764;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+}
+.ecard.pk .etop{border-color:rgba(244,114,182,.15);}
+.erole{
+  font-family:'Teko',sans-serif;font-size:1.7rem;
+  font-weight:600;letter-spacing:2px;line-height:1;
+  color:#e879f9;text-transform:uppercase;
+}
+.ecard.pk .erole{color:#f472b6;}
+.etype{font-size:.6rem;color:#6b21a8;letter-spacing:.15em;margin-top:.3rem;}
+.ebadge{
+  font-size:.6rem;padding:.3rem .6rem;border:1px solid #3b0764;
+  color:#6b21a8;white-space:nowrap;flex-shrink:0;font-family:'Share Tech Mono',monospace;
+}
+.ecard.pk .ebadge{border-color:rgba(244,114,182,.2);color:#f472b6;}
+.ebody{padding:1.2rem 1.5rem;}
+.eli{
+  font-size:.75rem;color:#c084fc;
+  padding:.3rem 0 .3rem 1.2rem;
+  border-bottom:1px dashed #3b0764;
+  position:relative;line-height:1.6;
+}
+.eli:last-child{border-bottom:none;}
+.eli::before{content:'>';position:absolute;left:0;color:#e879f9;font-weight:700;}
+.ecard.pk .eli::before{color:#f472b6;}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.pcard{
+  border:1px solid #3b0764;position:relative;overflow:hidden;
+  transition:border-color .25s;background:#0d0118;
+}
+.pcard:hover{border-color:#e879f9;}
+.pnum{
+  position:absolute;right:1rem;top:.5rem;
+  font-family:'Teko',sans-serif;font-size:6rem;font-weight:700;
+  color:rgba(232,121,249,.04);line-height:1;pointer-events:none;
+}
+.phead{
+  padding:1.2rem 1.5rem;border-bottom:1px solid #3b0764;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.pname{
+  font-family:'Teko',sans-serif;font-size:1.6rem;
+  font-weight:600;letter-spacing:2px;color:#e879f9;text-transform:uppercase;
+}
+.pstatus{
+  font-size:.6rem;color:#e879f9;letter-spacing:.15em;
+  display:flex;align-items:center;gap:.3rem;
+}
+.pstatus::before{content:'';width:5px;height:5px;border-radius:50%;background:#e879f9;box-shadow:0 0 5px #e879f9;animation:nbpulse 2s infinite;}
+.pbody{padding:1.2rem 1.5rem;}
+.pdesc{font-size:.75rem;color:#c084fc;line-height:1.8;margin-bottom:1.2rem;}
+.plinks{display:flex;gap:.6rem;margin-top:1rem;}
+.plink{
+  font-size:.65rem;padding:.25rem .7rem;
+  border:1px solid #3b0764;color:#6b21a8;
+  text-decoration:none;letter-spacing:.1em;transition:all .2s;text-transform:uppercase;
+}
+.plink:hover{border-color:#e879f9;color:#e879f9;}
+
+/* CERTS */
+.cfrow{display:flex;gap:0;margin-bottom:2rem;flex-wrap:wrap;}
+.cfbtn{
+  padding:.4rem .9rem;border:1px solid #3b0764;margin-right:-1px;
+  background:transparent;color:#6b21a8;font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;cursor:none;transition:all .2s;
+  letter-spacing:.1em;text-transform:uppercase;
+}
+.cfbtn.on,.cfbtn:hover{background:rgba(232,121,249,.08);color:#e879f9;border-color:#e879f9;}
+
+.cgrid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:1px;background:#3b0764;
+}
+.citem{
+  background:#08000f;padding:1rem 1.2rem;
+  display:flex;align-items:center;gap:.9rem;
+  transition:background .2s;position:relative;overflow:hidden;
+}
+.citem:hover{background:#0d0118;}
+.citem::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:#e879f9;transform:scaleY(0);transition:transform .3s;transform-origin:bottom;
+}
+.citem:hover::before{transform:scaleY(1);}
+.cico{
+  width:32px;height:32px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid #3b0764;
+  font-family:'Share Tech Mono',monospace;font-size:.55rem;font-weight:700;
+}
+.ico-ms{color:#60a5fa;border-color:rgba(96,165,250,.25);}
+.ico-ora{color:#f87171;border-color:rgba(248,113,113,.25);}
+.ico-mdb{color:#a855f7;border-color:rgba(168,85,247,.25);}
+.ico-cel{color:#e879f9;border-color:#3b0764;}
+.ico-tat{color:#fbbf24;border-color:rgba(251,191,36,.25);}
+.cinfo{flex:1;min-width:0;}
+.cname{font-size:.76rem;color:#f5d0fe;line-height:1.35;}
+.csrc{font-size:.62rem;color:#6b21a8;margin-top:.2rem;letter-spacing:.06em;}
+.ctick{font-size:.8rem;flex-shrink:0;}
+
+/* EDUCATION */
+.educard{
+  border:1px solid #3b0764;padding:2rem;
+  display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;
+  transition:border-color .25s,box-shadow .25s;background:#0d0118;
+}
+.educard:hover{border-color:#e879f9;box-shadow:0 0 30px rgba(232,121,249,.06);}
+.eduyear{
+  font-family:'Teko',sans-serif;font-size:3.5rem;font-weight:700;
+  color:#3b0764;line-height:1;letter-spacing:-2px;
+  border-right:1px solid #3b0764;padding-right:2rem;min-width:140px;text-align:center;
+}
+.eduyear span{display:block;font-size:1rem;font-weight:400;color:#6b21a8;letter-spacing:3px;margin-top:.2rem;}
+.edudeg{
+  font-family:'Teko',sans-serif;font-size:2rem;font-weight:600;
+  letter-spacing:2px;color:#e879f9;text-transform:uppercase;margin-bottom:.4rem;line-height:1.1;
+}
+.edudet{font-size:.75rem;color:#6b21a8;letter-spacing:.1em;}
+
+/* CONTACT */
+#contact{
+  padding:5rem 3rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  border-bottom:1px solid #3b0764;
+}
+.ctbig{
+  font-family:'Teko',sans-serif;font-size:clamp(4rem,8vw,7rem);
+  font-weight:700;line-height:.85;letter-spacing:-2px;
+  color:#e879f9;text-shadow:0 0 40px rgba(232,121,249,.3);
+  text-transform:uppercase;margin-bottom:1.5rem;
+}
+.ctbig span{color:#3b0764;display:block;}
+.ctsub{font-size:.78rem;color:#c084fc;line-height:2;margin-bottom:2rem;}
+.ctlinks{display:flex;flex-direction:column;gap:.6rem;}
+.ctlink{
+  display:flex;align-items:center;gap:1rem;
+  padding:.7rem 1rem;border:1px solid #3b0764;
+  color:#c084fc;text-decoration:none;font-size:.75rem;
+  letter-spacing:.06em;transition:all .2s;position:relative;overflow:hidden;
+}
+.ctlink::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(232,121,249,.06);transition:width .3s;}
+.ctlink:hover::after{width:100%;}
+.ctlink:hover{border-color:#e879f9;color:#e879f9;}
+.ctkey{color:#3b0764;font-size:.68rem;width:60px;flex-shrink:0;}
+
+.ct-term{background:#0d0118;border:1px solid #3b0764;padding:1.5rem;}
+.ct-thdr{
+  display:flex;justify-content:space-between;margin-bottom:1rem;
+  padding-bottom:.8rem;border-bottom:1px solid #3b0764;
+  font-size:.65rem;color:#6b21a8;letter-spacing:.1em;
+}
+.ctlines{display:flex;flex-direction:column;gap:.6rem;}
+.ctl{font-size:.75rem;line-height:1.6;}
+.ctl .p{color:#3b0764;}
+.ctl .c{color:#e879f9;}
+.ctl .v{color:#f5d0fe;}
+.ctl .s{color:#c084fc;}
+.ctl .h{color:#f9a8d4;}
+.copybtn{
+  margin-top:1.5rem;padding:.5rem 1rem;width:100%;text-align:left;
+  background:transparent;border:1px solid #3b0764;
+  color:#6b21a8;font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;cursor:none;letter-spacing:.1em;
+  transition:all .2s;text-transform:uppercase;
+}
+.copybtn:hover{border-color:#e879f9;color:#e879f9;background:rgba(232,121,249,.04);}
+
+/* FOOTER */
+.footer{
+  padding:1.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.62rem;color:#3b0764;letter-spacing:.12em;
+}
+.footer span{color:#6b21a8;}
+
+/* SCROLL REVEAL */
+.sr{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;}
+.sr.vis{opacity:1;transform:translateY(0);}
+.sr2{transition-delay:.1s;}
+.sr3{transition-delay:.2s;}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:.8rem 1.5rem;}
+  .nav-links,.nav-badge{display:none;}
+  #hero{grid-template-columns:1fr;padding:5rem 1.5rem 2rem;}
+  .hero-left{border-right:none;padding:0;}
+  .hero-right{padding:2rem 0 0;}
+  .sec{padding:4rem 1.5rem;}
+  .about-grid,.exp-grid,.proj-grid{grid-template-columns:1fr;}
+  #contact{grid-template-columns:1fr;padding:4rem 1.5rem;}
+  .footer{padding:1rem 1.5rem;flex-direction:column;gap:.4rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur">_</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">THIRIVENI</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#exp">work</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#certs">certs</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-badge"><div class="nbdot"></div>AVAILABLE FOR HIRE</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">FULL STACK DEVELOPER · EMBEDDED SYSTEMS · CHENNAI</div>
+    <h1 class="hero-name" data-text="THIRIVENI">THIRIVENI</h1>
+    <div class="hero-role">Developer_</div>
+    <div class="typewr" id="tw"></div>
+    <div class="hero-btns">
+      <button class="btn-t" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">./view_projects</button>
+      <button class="btn-g" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">--contact</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="term-win">
+      <div class="term-bar">
+        <div class="tdot td1"></div>
+        <div class="tdot td2"></div>
+        <div class="tdot td3"></div>
+        <div class="term-ttl">thiriveni@dev:~$</div>
+      </div>
+      <div class="term-body">
+        <div class="tl"><span class="tp">~/</span><span class="tc">cat profile.json</span></div>
+        <div class="tl"><span class="to">{</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"name"</span>: <span class="tv">"Thiriveni"</span>,</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"role"</span>: <span class="tv">"Full Stack Dev"</span>,</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"also"</span>: <span class="tv">"Embedded C"</span>,</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"stack"</span>: [</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ttag tpurple">React</span><span class="ttag tpurple">HTML/CSS</span><span class="ttag tblue">MongoDB</span></span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;&nbsp;&nbsp;<span class="ttag tamber">Embedded C</span><span class="ttag tpurple">Python</span><span class="ttag tpurple">Java</span></span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;],</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"status"</span>: <span class="ttag tpurple">OPEN_TO_WORK</span>,</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"certs"</span>: <span class="tv">15</span>,</span></div>
+        <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">"internships"</span>: <span class="tv">2</span></span></div>
+        <div class="tl"><span class="to">}</span></div>
+        <div class="tl" style="margin-top:.5rem"><span class="tp">~/</span><span class="tblink"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="sec-hdr">
+    <span class="sec-n">// 01</span>
+    <h2 class="sec-t">ABOUT <span>ME</span></h2>
+    <div class="sec-ln"></div>
+  </div>
+  <div class="about-grid sr">
+    <div class="ablock" data-l="README.md">
+      <p class="atext">
+        Passionate and detail-oriented <strong>Computer Science Engineering student</strong>
+        pursuing B.E CSE in Chennai. I thrive at the intersection of
+        <em>web development</em> and <em>embedded systems</em>.<br><br>
+        I build <strong>responsive web apps</strong> with modern JS stacks and have
+        hands-on internship experience in <strong>Embedded C</strong> — programming
+        microcontrollers, GPIO, timers, and real hardware.<br><br>
+        Eager to learn fast, ship quality work, and contribute to
+        <strong>products that matter</strong>.
+      </p>
+    </div>
+    <div class="ablock" data-l="stats.log">
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="snum" data-target="15">0</div>
+          <div class="sbar-wrap">
+            <div class="sbar-lbl">Certifications</div>
+            <div class="sbar"><div class="sbar-fill" data-w="95%"></div></div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="snum" data-target="2">0</div>
+          <div class="sbar-wrap">
+            <div class="sbar-lbl">Internships</div>
+            <div class="sbar"><div class="sbar-fill" data-w="60%"></div></div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="snum" data-target="2">0</div>
+          <div class="sbar-wrap">
+            <div class="sbar-lbl">Live Projects</div>
+            <div class="sbar"><div class="sbar-fill" data-w="60%"></div></div>
+          </div>
+        </div>
+        <div class="stat-item"><div class="snum" data-target="6">0</div>
+          <div class="sbar-wrap">
+            <div class="sbar-lbl">Technologies</div>
+            <div class="sbar"><div class="sbar-fill" data-w="75%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sec">
+  <div class="sec-hdr">
+    <span class="sec-n">// 02</span>
+    <h2 class="sec-t">SKILL <span>SET</span></h2>
+    <div class="sec-ln"></div>
+  </div>
+  <div class="skill-term sr">
+    <div class="skcat">
+      <div class="skcat-lbl">load frontend_stack</div>
+      <div class="chips">
+        <span class="chip cp">HTML5</span><span class="chip cp">CSS3</span>
+        <span class="chip cp">JavaScript</span><span class="chip cp">React.js</span>
+        <span class="chip cp">Responsive Design</span>
+      </div>
+    </div>
+    <div class="skcat">
+      <div class="skcat-lbl">load languages</div>
+      <div class="chips">
+        <span class="chip cpk">Java</span><span class="chip cpk">Python</span>
+        <span class="chip cpk">C</span><span class="chip cam">Embedded C</span>
+        <span class="chip cbl">SQL</span>
+      </div>
+    </div>
+    <div class="skcat">
+      <div class="skcat-lbl">load tools_and_platforms</div>
+      <div class="chips">
+        <span class="chip cbl">MongoDB</span><span class="chip cwh">GitHub</span>
+        <span class="chip cwh">Netlify</span><span class="chip cbl">MS Fabric</span>
+        <span class="chip cp">Data Structures</span>
+        <span class="chip cam">GPIO / Timers</span>
+        <span class="chip cam">Microcontrollers</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="exp" class="sec">
+  <div class="sec-hdr">
+    <span class="sec-n">// 03</span>
+    <h2 class="sec-t">WORK <span>EXP</span></h2>
+    <div class="sec-ln"></div>
+  </div>
+  <div class="exp-grid">
+    <div class="ecard sr">
+      <div class="escan"></div>
+      <div class="etop">
+        <div>
+          <div class="erole">Full Stack<br>Intern</div>
+          <div class="etype">WEB_DEVELOPMENT</div>
+        </div>
+        <div class="ebadge">INTERNSHIP_01</div>
+      </div>
+      <div class="ebody">
+        <div class="eli">Built responsive web apps using HTML, CSS, JavaScript</div>
+        <div class="eli">Hands-on frontend and backend development</div>
+        <div class="eli">Improved debugging and problem-solving skills</div>
+        <div class="eli">Collaborated on live production projects</div>
+      </div>
+    </div>
+    <div class="ecard pk sr sr2">
+      <div class="escan"></div>
+      <div class="etop">
+        <div>
+          <div class="erole">Embedded C<br>Intern</div>
+          <div class="etype">EMBEDDED_SYSTEMS</div>
+        </div>
+        <div class="ebadge">INTERNSHIP_02</div> 
+      </div><div class="ebody">
+        <div class="eli">Programmed microcontrollers using Embedded C</div>
+        <div class="eli">Worked with GPIO, timers, and interrupts</div>
+        <div class="eli">Developed firmware for embedded applications</div>
+        <div class="eli">Bridged hardware-software at low level</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec">
+  <div class="sec-hdr">
+    <span class="sec-n">// 04</span>
+    <h2 class="sec-t">PROJECT <span>LOG</span></h2>
+    <div class="sec-ln"></div>
+  </div>
+  <div class="proj-grid">
+    <div class="pcard sr">
+      <div class="pnum">01</div>
+      <div class="phead">
+        <div class="pname">Portfolio.exe</div>
+        <div class="pstatus">LIVE</div>
+      </div>
+      <div class="pbody">
+        <p class="pdesc">Personal portfolio built with HTML, CSS, JavaScript. Features a form validation system with error handling and clean responsive layout.</p>
+        <div class="chips">
+          <span class="chip cp">HTML</span><span class="chip cp">CSS</span>
+          <span class="chip cp">JavaScript</span><span class="chip cam">Form Validation</span>
+        </div>
+        <div class="plinks">
+          <a class="plink" href="#">↗ live_demo</a>
+          <a class="plink" href="#">⌥ github</a>
+        </div>
+      </div>
+    </div>
+    <div class="pcard sr sr2">
+      <div class="pnum">02</div>
+      <div class="phead">
+        <div class="pname">CollegeEase</div>
+        <div class="pstatus">DEPLOYED</div>
+      </div>
+      <div class="pbody">
+        <p class="pdesc">Student utility platform for academic resources and announcements. Responsive, deployed on Netlify via GitHub. Helps students stay organized.</p>
+        <div class="chips">
+          <span class="chip cp">HTML</span><span class="chip cp">CSS</span>
+          <span class="chip cp">JavaScript</span>
+          <span class="chip cwh">GitHub</span><span class="chip cbl">Netlify</span>
+        </div>
+        <div class="plinks">
+          <a class="plink" href="#">↗ live_demo</a>
+          <a class="plink" href="#">⌥ github</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs" class="sec">
+  <div class="sec-hdr">
+    <span class="sec-n">// 05</span>
+    <h2 class="sec-t">CERT <span>VAULT</span></h2>
+    <div class="sec-ln"></div>
+  </div>
+  <div class="cfrow">
+    <button class="cfbtn on" data-f="all">ALL [15]</button>
+    <button class="cfbtn" data-f="microsoft">MICROSOFT [11]</button>
+    <button class="cfbtn" data-f="oracle">ORACLE [1]</button>
+    <button class="cfbtn" data-f="mongodb">MONGODB [1]</button>
+    <button class="cfbtn" data-f="celonis">CELONIS [1]</button>
+    <button class="cfbtn" data-f="tata">TATA [1]</button>
+  </div>
+  <div class="cgrid" id="cgrid">
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Fundamentals of Generative AI</div><div class="csrc">Microsoft Learnathon</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Fundamentals of Responsible Generative AI</div><div class="csrc">Microsoft Learnathon</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Learn AI and Gen AI Basics</div><div class="csrc">Microsoft Learnathon</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Get Started with Microsoft Copilot</div><div class="csrc">Microsoft Learnathon</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Explore Generative AI with Copilot in Bing</div><div class="csrc">Microsoft Learnathon</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Use Data Factory Pipelines in Microsoft Fabric</div><div class="csrc">Microsoft Fabric</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Introduction to End-to-End Analytics using Microsoft Fabric</div><div class="csrc">Microsoft Fabric</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Get Started with Lakehouses in Microsoft Fabric</div><div class="csrc">Microsoft Fabric</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Use Apache Spark in Microsoft Fabric</div><div class="csrc">Microsoft Fabric</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Work with Delta Lake Tables in Microsoft Fabric</div><div class="csrc">Microsoft Fabric</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="microsoft"><div class="cico ico-ms">MS</div><div class="cinfo"><div class="cname">Describe the Concepts of Cybersecurity</div><div class="csrc">Microsoft Learnathon</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="oracle"><div class="cico ico-ora">ORA</div><div class="cinfo"><div class="cname">Oracle Database Foundations</div><div class="csrc">Oracle</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="mongodb"><div class="cico ico-mdb">MDB</div><div class="cinfo"><div class="cname">MongoDB Database Fundamentals</div><div class="csrc">MongoDB</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="celonis"><div class="cico ico-cel">CEL</div><div class="cinfo"><div class="cname">Celonis Academic Process Mining Fundamentals</div><div class="csrc">Celonis</div></div><div class="ctick">✅</div></div>
+    <div class="citem" data-i="tata"><div class="cico ico-tat">TAT</div><div class="cinfo"><div class="cname">Cybersecurity for Beginners</div><div class="csrc">Tata Communications</div></div><div class="ctick">✅</div></div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="edu" class="sec">
+  <div class="sec-hdr">
+    <span class="sec-n">// 06</span>
+    <h2 class="sec-t">EDU <span>LOG</span></h2>
+    <div class="sec-ln"></div>
+  </div>
+  <div class="educard sr">
+    <div class="eduyear">2023<span>— 2027</span></div>
+    <div>
+      <div class="edudeg">B.E Computer Science<br>Engineering</div>
+      <div class="edudet">Chennai, TamilNadu &nbsp;|&nbsp; Currently Pursuing &nbsp;|&nbsp; CSE</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <div class="ctbig">LET'S<br><span>BUILD</span><br>TOGETHER</div>
+    <p class="ctsub">Open to internships, collaborations &amp; full-time roles.<br>Fast learner · Team player · Detail-oriented.</p>
+    <div class="ctlinks">
+      <a href="mailto:thiriveni505@gmail.com" class="ctlink"><span class="ctkey">--email</span>thiriveni505@gmail.com</a>
+      <a href="tel:+919384306823" class="ctlink"><span class="ctkey">--phone</span>+91 93843 06823</a>
+      <a href="https://www.linkedin.com/in/thiriveni" target="_blank" class="ctlink"><span class="ctkey">--link</span>linkedin.com/in/thiriveni</a>
+      <span class="ctlink"><span class="ctkey">--loc</span>Chennai, TamilNadu</span>
+    </div>
+  </div>
+  <div>
+    <div class="ct-term">
+      <div class="ct-thdr"><span>contact_info.sh</span><span>EXECUTABLE</span></div>
+      <div class="ctlines">
+        <div class="ctl"><span class="p">$</span> <span class="c">echo</span> <span class="v">"Ready to collaborate"</span></div>
+        <div class="ctl"><span class="s">→ Status: </span><span class="c">AVAILABLE_FOR_HIRE</span></div>
+        <div class="ctl"><span class="p">$</span> <span class="c">cat</span> <span class="v">strengths.txt</span></div>
+        <div class="ctl"><span class="s">→ </span><span class="h">Full Stack Development</span></div>
+        <div class="ctl"><span class="s">→ </span><span class="h">Embedded C / Hardware</span></div>
+        <div class="ctl"><span class="s">→ </span><span class="h">15+ Certifications</span></div>
+        <div class="ctl"><span class="s">→ </span><span class="h">Fast Learner · Team Player</span></div>
+        <div class="ctl"><span class="p">$</span> <span class="c">ping</span> <span class="v">thiriveni505@gmail.com</span></div>
+        <div class="ctl"><span class="s">→ Awaiting your message... </span><span class="tblink"></span></div>
+      </div>
+      <button class="copybtn" id="copybtn">$ cp email → clipboard</button>
+    </div>
+  </div>
+</section><div class="footer">
+  <span>© 2025 THIRIVENI.DEV</span>
+  <span>BUILT WITH 💜 + ☕</span>
+  <span>B.E CSE · CHENNAI · 2027</span>
+</div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.addEventListener('mousedown',()=>{cur.textContent='█';});
+document.addEventListener('mouseup',()=>{cur.textContent='_';});
+
+/* TYPEWRITER */
+const lines=['Aspiring Full Stack Developer_','Building web apps & firmware_','React · Embedded C · MongoDB_','Open to opportunities_'];
+let li=0,ci=0,del=false;
+const tw=document.getElementById('tw');
+function type(){
+  if(!del){tw.textContent=lines[li].substring(0,++ci);if(ci===lines[li].length){del=true;setTimeout(type,1600);return;}}
+  else{tw.textContent=lines[li].substring(0,--ci);if(ci===0){del=false;li=(li+1)%lines.length;setTimeout(type,300);return;}}
+  setTimeout(type,del?38:68);
+}
+type();
+
+/* SCROLL REVEAL */
+const sro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.sr').forEach(el=>sro.observe(el));
+
+/* COUNTERS */
+function animNum(el){
+  const t=+el.dataset.target;let c=0;
+  const s=()=>{c+=Math.ceil(t/25);if(c>=t){el.textContent=t+'+';return;}el.textContent=c;requestAnimationFrame(s);};s();
+}
+const cno=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){animNum(x.target);cno.unobserve(x.target);}}),{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>cno.observe(el));
+
+/* STAT BARS */
+const baro=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting){x.target.querySelectorAll('.sbar-fill').forEach(b=>{b.style.width=b.dataset.w;});baro.unobserve(x.target);}
+}),{threshold:.3});
+document.querySelectorAll('.ablock').forEach(el=>baro.observe(el));
+
+/* CERT FILTER */
+document.querySelectorAll('.cfbtn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.cfbtn').forEach(b=>b.classList.remove('on'));
+    this.classList.add('on');
+    const f=this.dataset.f;
+    document.querySelectorAll('.citem').forEach(c=>{c.style.display=(f==='all'||c.dataset.i===f)?'flex':'none';});
+  });
+});
+
+/* COPY EMAIL */
+document.getElementById('copybtn').addEventListener('click',function(){
+  navigator.clipboard.writeText('thiriveni505@gmail.com').then(()=>{
+    this.textContent='$ echo "copied!" ✓';
+    setTimeout(()=>{this.textContent='$ cp email → clipboard';},2000);
+  });
+});
+</script>
+</body>
+</html>
